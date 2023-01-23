@@ -1,8 +1,18 @@
+using AuthenticationPoc.Interfaces.Workers;
+using AuthenticationPoc.Workers;
+using Microsoft.AspNetCore.Authentication;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+//WorkerServices:
+builder.Services.AddSingleton<IAuthenticationWorker, AuthenticationWorker>();
+
+//RepositoryServices:
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
