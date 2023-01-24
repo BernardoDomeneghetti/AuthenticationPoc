@@ -62,7 +62,7 @@ namespace AuthenticationPoc.Workers
         {
             using var hmac = new HMACSHA512(passwordSalt);
             var newHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(rawPassword));
-            return newHash.Equals(passwordHash);
+            return newHash.SequenceEqual(passwordHash);
         }
     }
 }
