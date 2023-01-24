@@ -3,6 +3,6 @@
     public class LoginResponse
     {
         public bool Success { get; set; }
-        public string Token { get; set; } = string.Empty;
+        public string AuthenticationToken { get; set; } = string.Empty;
     }
 }
