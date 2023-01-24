@@ -20,7 +20,7 @@ namespace AuthenticationPoc.Workers
         {
             //Don't remove the async clause because, after we are gonna need to call some repository methods;
 
-            if (User.Username != userDto.Username || PasswordHashMatches(userDto.Password, User.PasswordHash, User.PasswordSalt))
+            if (User.Username != userDto.Username || !PasswordHashMatches(userDto.Password, User.PasswordHash, User.PasswordSalt))
                 return new LoginResponse()
                 {
                     Success = false,
@@ -53,8 +53,8 @@ namespace AuthenticationPoc.Workers
         {
             using var hmac = new HMACSHA512();
             return new PassordEncryptionResponse(
-                   passwordHash: hmac.Key,
-                   passwordSalt: hmac.ComputeHash(Encoding.UTF8.GetBytes(password))
+                   passwordHash: hmac.ComputeHash(Encoding.UTF8.GetBytes(password)),
+                   passwordSalt: hmac.Key
                );
         }
        
@@ -62,7 +62,7 @@ namespace AuthenticationPoc.Workers
         {
             using var hmac = new HMACSHA512(passwordSalt);
             var newHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(rawPassword));
-            return newHash == passwordHash;
+            return newHash.Equals(passwordHash);
         }
     }
 }
