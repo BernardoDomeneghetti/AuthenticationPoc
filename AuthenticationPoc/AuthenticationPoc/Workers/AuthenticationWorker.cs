@@ -18,8 +18,6 @@ namespace AuthenticationPoc.Workers
             _jwtTokenManager = jwtTokenManager;
         }
 
-        
-
         public async Task<LoginResponse> Login(UserDto userDto) 
         {
             //Don't remove the async clause because, after we are gonna need to call some repository methods;
@@ -34,7 +32,7 @@ namespace AuthenticationPoc.Workers
             return new LoginResponse()
             {
                 Success = true,
-                Token = _jwtTokenManager.GenerateJwtToken(userDto)
+                AuthenticationToken = _jwtTokenManager.GenerateJwtToken(userDto)
             };
         }
 
