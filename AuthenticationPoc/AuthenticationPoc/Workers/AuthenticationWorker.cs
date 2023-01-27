@@ -28,7 +28,7 @@ namespace AuthenticationPoc.Workers
                 return new LoginResponse()
                 {
                     Success = false,
-                    Token = string.Empty
+                    AuthenticationToken = string.Empty
                 };
 
             return new LoginResponse()
