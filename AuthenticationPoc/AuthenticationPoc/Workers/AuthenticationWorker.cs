@@ -1,4 +1,5 @@
 ﻿using AuthenticationPoc.DataTransferObjects;
+using AuthenticationPoc.Interfaces.Helpers;
 using AuthenticationPoc.Interfaces.Workers;
 using AuthenticationPoc.Models;
 using AuthenticationPoc.Models.Responses;
@@ -10,17 +11,20 @@ namespace AuthenticationPoc.Workers
     public class AuthenticationWorker: IAuthenticationWorker
     {
         private User User = new();
+        private readonly IJwtTokenManager _jwtTokenManager;
 
-        private static string GenerateJwtToken()
+        public AuthenticationWorker(IJwtTokenManager jwtTokenManager)
         {
-            return "SuckMyBalls";
+            _jwtTokenManager = jwtTokenManager;
         }
+
+        
 
         public async Task<LoginResponse> Login(UserDto userDto) 
         {
             //Don't remove the async clause because, after we are gonna need to call some repository methods;
 
-            if (User.Username != userDto.Username || !PasswordHashMatches(userDto.Password, User.PasswordHash, User.PasswordSalt))
+            if (User.Username != userDto.Email || !PasswordHashMatches(userDto.Password, User.PasswordHash, User.PasswordSalt))
                 return new LoginResponse()
                 {
                     Success = false,
@@ -30,7 +34,7 @@ namespace AuthenticationPoc.Workers
             return new LoginResponse()
             {
                 Success = true,
-                Token = GenerateJwtToken()
+                Token = _jwtTokenManager.GenerateJwtToken(userDto)
             };
         }
 
@@ -43,7 +47,7 @@ namespace AuthenticationPoc.Workers
             {
                 PasswordHash = hashResult.PasswordHash,
                 PasswordSalt = hashResult.PasswordSalt,
-                Username = userDto.Username
+                Username = userDto.Email
             };
 
             return User;

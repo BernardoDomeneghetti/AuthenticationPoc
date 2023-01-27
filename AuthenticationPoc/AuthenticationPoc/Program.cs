@@ -1,4 +1,7 @@
+using AuthenticationPoc.Helpers;
+using AuthenticationPoc.Interfaces.Helpers;
 using AuthenticationPoc.Interfaces.Workers;
+using AuthenticationPoc.Validators;
 using AuthenticationPoc.Workers;
 using Microsoft.AspNetCore.Authentication;
 
@@ -7,6 +10,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+//Validators
+builder.Services.AddSingleton<UserDtoValidator>();
+
+//Helpers
+builder.Services.AddSingleton<IJwtTokenManager, JwtTokenManager>();
 
 //WorkerServices:
 builder.Services.AddSingleton<IAuthenticationWorker, AuthenticationWorker>();
