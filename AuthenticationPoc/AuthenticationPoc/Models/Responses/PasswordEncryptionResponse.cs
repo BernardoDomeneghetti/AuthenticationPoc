@@ -1,8 +1,8 @@
 ﻿namespace AuthenticationPoc.Models.Responses
 {
-    public class PassordEncryptionResponse
+    public class PasswordEncryptionResponse
     {
-        public PassordEncryptionResponse(byte[] passwordHash, byte[] passwordSalt)
+        public PasswordEncryptionResponse(byte[] passwordHash, byte[] passwordSalt)
         {
             PasswordHash = passwordHash;
             PasswordSalt = passwordSalt;

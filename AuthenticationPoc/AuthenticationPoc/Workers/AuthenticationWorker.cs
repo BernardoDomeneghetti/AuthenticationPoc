@@ -51,10 +51,10 @@ namespace AuthenticationPoc.Workers
             return User;
         }
 
-        private static PassordEncryptionResponse CreatePasswordHash(string password)
+        private static PasswordEncryptionResponse CreatePasswordHash(string password)
         {
             using var hmac = new HMACSHA512();
-            return new PassordEncryptionResponse(
+            return new PasswordEncryptionResponse(
                    passwordHash: hmac.ComputeHash(Encoding.UTF8.GetBytes(password)),
                    passwordSalt: hmac.Key
                );
