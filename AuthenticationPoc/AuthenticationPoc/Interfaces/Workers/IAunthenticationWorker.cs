@@ -6,7 +6,7 @@ namespace AuthenticationPoc.Interfaces.Workers
 {
     public interface IAuthenticationWorker
     {
-        Task<User> RegisterNewUser(UserDto userDto);
-        Task<LoginResponse> Login(UserDto userDto);
+        Task RegisterNewUser(RegisterDto userDto);
+        Task<LoginResponse> Login(LoginDto userDto);
     }
 }
