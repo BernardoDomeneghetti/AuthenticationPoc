@@ -1,0 +1,316 @@
+{
+	"info": {
+		"_postman_id": "7880f111-ca6f-4bc2-80d3-66230d551f8b",
+		"name": "Authentication",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23249863"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"item": [
+				{
+					"name": "CT01 - Email inválido",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var retorno400 = responseCode.code === 400;\r",
+									"tests[\"retorno 400\"] = retorno400;\r",
+									"\r",
+									"if (retorno400) {    \r",
+									"    try{        \r",
+									"        var data = JSON.parse(responseBody)[0];\r",
+									"        tests[\"Nome da propriedade validator: \" + data.propertyName] = data.propertyName === \"Email\";\r",
+									"        tests[\"Mensagem de email inválido: \" + data.errorMessage] = data.errorMessage === \"'Email' é um endereço de email inválido.\";\r",
+									"    }    \r",
+									"    catch(e){\r",
+									"        tests[e.message] = false;\r",
+									"    }\r",
+									"};"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"string\",\r\n  \"password\": \"string@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{RootURL}}/api/Authentication/register",
+							"host": [
+								"{{RootURL}}"
+							],
+							"path": [
+								"api",
+								"Authentication",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CT02 - Senha inválida",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var retorno400 = responseCode.code === 400;\r",
+									"tests[\"retorno 400\"] = retorno400;\r",
+									"\r",
+									"if (retorno400) {    \r",
+									"    try{        \r",
+									"        var data = JSON.parse(responseBody)[0]; \r",
+									"        tests[\"Nome da propriedade validator: \" + data.propertyName] = data.propertyName === \"Password\";\r",
+									"        tests[\"Mensagem de senha inválida: \" + data.errorMessage] = data.errorMessage === \"Your password must contain a @ character!\";\r",
+									"    }    \r",
+									"    catch(e){\r",
+									"        tests[e.message] = false;\r",
+									"    }\r",
+									"};"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"string@gmail.com\",\r\n  \"password\": \"vraw\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{RootURL}}/api/Authentication/register",
+							"host": [
+								"{{RootURL}}"
+							],
+							"path": [
+								"api",
+								"Authentication",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CT03 - Resgistro OK",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var retorno200 = responseCode.code === 200;\r",
+									"tests[\"retorno 200\"] = retorno200;\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"string@gmail.com\",\r\n  \"password\": \"vraw@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{RootURL}}/api/Authentication/register",
+							"host": [
+								"{{RootURL}}"
+							],
+							"path": [
+								"api",
+								"Authentication",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "CT01 - Email inválido",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var retorno400 = responseCode.code === 400;\r",
+									"tests[\"retorno 400\"] = retorno400;\r",
+									"\r",
+									"if (retorno400) {    \r",
+									"    try{        \r",
+									"        var data = JSON.parse(responseBody)[0];\r",
+									"        tests[\"Nome da propriedade validator: \" + data.propertyName] = data.propertyName === \"Email\";\r",
+									"        tests[\"Mensagem de email inválido: \" + data.errorMessage] = data.errorMessage === \"'Email' é um endereço de email inválido.\";\r",
+									"    }    \r",
+									"    catch(e){\r",
+									"        tests[e.message] = false;\r",
+									"    }\r",
+									"};"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"string\",\r\n  \"password\": \"string@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{RootURL}}/api/Authentication/login",
+							"host": [
+								"{{RootURL}}"
+							],
+							"path": [
+								"api",
+								"Authentication",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CT02 - Senha inválida",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var retorno400 = responseCode.code === 400;\r",
+									"tests[\"retorno 400\"] = retorno400;\r",
+									"\r",
+									"if (retorno400) {    \r",
+									"    try{        \r",
+									"        var data = JSON.parse(responseBody)[0]; \r",
+									"        tests[\"Nome da propriedade validator: \" + data.propertyName] = data.propertyName === \"Password\";\r",
+									"        tests[\"Mensagem de senha inválida: \" + data.errorMessage] = data.errorMessage === \"Your password must contain a @ character!\";\r",
+									"    }    \r",
+									"    catch(e){\r",
+									"        tests[e.message] = false;\r",
+									"    }\r",
+									"};"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"string@gmail.com\",\r\n  \"password\": \"vraw\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{RootURL}}/api/Authentication/login",
+							"host": [
+								"{{RootURL}}"
+							],
+							"path": [
+								"api",
+								"Authentication",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CT03 - Login OK",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var retorno200 = responseCode.code === 200;\r",
+									"tests[\"retorno 200\"] = retorno200;\r",
+									"\r",
+									"if (retorno200) {    \r",
+									"    try{        \r",
+									"        var data = JSON.parse(responseBody); \r",
+									"        tests[\"authenticationToken not null\"] = (data.authenticationToken != \"\" && data.authenticationToken != null);\r",
+									"    }\r",
+									"    catch(e){\r",
+									"        tests[e.message] = false;\r",
+									"    }\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"string@gmail.com\",\r\n  \"password\": \"vraw@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{RootURL}}/api/Authentication/login",
+							"host": [
+								"{{RootURL}}"
+							],
+							"path": [
+								"api",
+								"Authentication",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
