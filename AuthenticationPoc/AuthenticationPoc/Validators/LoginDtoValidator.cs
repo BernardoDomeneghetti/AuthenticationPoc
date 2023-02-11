@@ -3,9 +3,9 @@ using FluentValidation;
 
 namespace AuthenticationPoc.Validators
 {
-    public class UserDtoValidator : AbstractValidator<UserDto>
+    public class LoginDtoValidator : AbstractValidator<LoginDto>
     {
-        public UserDtoValidator()
+        public LoginDtoValidator()
         {
             RuleFor(x => x.Email).NotEmpty();
             RuleFor(x => x.Email).EmailAddress();

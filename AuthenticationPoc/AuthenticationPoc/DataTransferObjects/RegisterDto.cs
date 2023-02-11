@@ -1,11 +1,12 @@
-﻿namespace AuthenticationPoc.Models
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace AuthenticationPoc.DataTransferObjects
 {
-    public class User
+    public class RegisterDto
     {
         public string Username { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
-        public byte[]? PasswordHash { get; set; }
-        public byte[]? PasswordSalt { get; set; }
+        public string Password { get; set; } = string.Empty;
         public string Role { get; set; } = string.Empty;
-    }  
+    }
 }

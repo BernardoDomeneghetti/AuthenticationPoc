@@ -2,6 +2,7 @@
 using AuthenticationPoc.Interfaces.Workers;
 using AuthenticationPoc.Models;
 using AuthenticationPoc.Validators;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AuthenticationPoc.Controllers
@@ -11,29 +12,33 @@ namespace AuthenticationPoc.Controllers
     public class AuthenticationController : ControllerBase
     {
         private readonly IAuthenticationWorker _authenticationWorker;
-        private readonly UserDtoValidator _userDtoValidator;
+        private readonly LoginDtoValidator _loginDtoValidator;
+        private readonly RegisterDtoValidator _registerDtoValidator;
 
-        public AuthenticationController(IAuthenticationWorker authenticationWorker, UserDtoValidator userDtoValidator)
+        public AuthenticationController(IAuthenticationWorker authenticationWorker, LoginDtoValidator userDtoValidator, RegisterDtoValidator registerDtoValidator)
         {
             _authenticationWorker = authenticationWorker;
-            _userDtoValidator = userDtoValidator;
+            _loginDtoValidator = userDtoValidator;
+            _registerDtoValidator = registerDtoValidator;
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult<User>> Register (UserDto userDto)
+        public async Task<ActionResult<User>> Register (RegisterDto registerDto)
         {
-            var validation = _userDtoValidator.Validate(userDto);
+            var validation = _registerDtoValidator.Validate(registerDto);
 
             if (!validation.IsValid)
                 return BadRequest(validation.Errors);
 
-            return Ok(await _authenticationWorker.RegisterNewUser(userDto));
+            await _authenticationWorker.RegisterNewUser(registerDto);
+            
+            return Ok();
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(UserDto userDto)
+        public async Task<IActionResult> Login(LoginDto userDto)
         {
-            var validation = _userDtoValidator.Validate(userDto);
+            var validation = _loginDtoValidator.Validate(userDto);
 
             if (!validation.IsValid)
                 return BadRequest(validation.Errors);
